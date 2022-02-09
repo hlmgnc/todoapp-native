@@ -8,6 +8,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import React, { useState, setState } from "react";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 export default function App() {
   const [label, setLabel] = React.useState("");
@@ -38,7 +39,21 @@ export default function App() {
           onPress={addTodo}
         />
       </SafeAreaView>
-      <Text>{todos[0]}</Text>
+
+      <View>
+        {todos.map((todo, index) => (
+          <Text key={index}>
+            <BouncyCheckbox
+              size={25}
+              fillColor="red"
+              unfillColor="#FFFFFF"
+              iconStyle={{ borderColor: "red" }}
+              onPress={() => {}}
+            />
+            {todo}{" "}
+          </Text>
+        ))}
+      </View>
     </View>
   );
 }
