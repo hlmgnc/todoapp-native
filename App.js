@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import {
+  FlatList,
   StyleSheet,
   Text,
   View,
@@ -7,7 +8,7 @@ import {
   Button,
   SafeAreaView,
 } from "react-native";
-import React, { useState, setState } from "react";
+import React from "react";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 export default function App() {
@@ -16,7 +17,7 @@ export default function App() {
   const [todos, setTodos] = React.useState([]);
 
   const addTodo = () => {
-    setTodos((oldTodos) => [...todos, label]);
+    setTodos((oldTodos) => [...oldTodos, label]);
     setLabel("");
   };
 
@@ -40,9 +41,10 @@ export default function App() {
         />
       </SafeAreaView>
 
-      <View>
-        {todos.map((todo, index) => (
-          <Text key={index}>
+      <FlatList
+        data={todos}
+        renderItem={({ item }) => (
+          <Text>
             <BouncyCheckbox
               size={25}
               fillColor="red"
@@ -50,10 +52,11 @@ export default function App() {
               iconStyle={{ borderColor: "red" }}
               onPress={() => {}}
             />
-            {todo}{" "}
+            {item}
           </Text>
-        ))}
-      </View>
+        )}
+        keyExtractor={(item, index) => index}
+      />
     </View>
   );
 }
